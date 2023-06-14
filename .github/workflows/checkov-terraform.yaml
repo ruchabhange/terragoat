@@ -34,7 +34,7 @@ jobs:
           
       - name: Post comment to GitHub PR
         uses: mshick/add-pr-comment@v1
-        if: ${{ failure() && steps.checkov.outcome == 'failure' }}
+        if: ${{ failure() && steps.Prisma_Cloud.outcome == 'failure' }}
         with:
          repo-token: ${{ secrets.TOKEN }}
          message: |
