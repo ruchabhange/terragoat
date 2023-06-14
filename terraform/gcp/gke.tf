@@ -8,7 +8,7 @@ resource "google_container_cluster" "workload_cluster" {
   logging_service    = "none"
   location           = var.region
   initial_node_count = 1
-
+  min_master_version = "1.22"
   enable_legacy_abac       = true
   monitoring_service       = "none"
   remove_default_node_pool = true
@@ -24,7 +24,10 @@ resource "google_container_cluster" "workload_cluster" {
 resource "google_container_node_pool" "custom_node_pool" {
   cluster  = google_container_cluster.workload_cluster.name
   location = var.region
-
+  version = "1.23"
+  management {
+           auto_upgrade = "false"
+        }
   node_config {
     image_type = "Ubuntu"
   }

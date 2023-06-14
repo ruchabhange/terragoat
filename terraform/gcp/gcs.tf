@@ -1,5 +1,5 @@
 resource "google_storage_bucket" "terragoat_website" {
-  name          = "terragot-${var.environment}"
+  name          = "terragoat-${var.environment}"
   location      = var.location
   force_destroy = true
   labels = {

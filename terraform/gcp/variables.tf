@@ -19,6 +19,6 @@ variable "environment" {
 }
 
 variable "location" {
-  default = "us-central1c"
+  default = "us-central1"
   type    = string
 }
