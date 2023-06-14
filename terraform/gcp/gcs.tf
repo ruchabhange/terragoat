@@ -1,3 +1,4 @@
+# adding storage bucket
 resource "google_storage_bucket" "terragoat_website" {
   name          = "terragoat-${var.environment}"
   location      = var.location
