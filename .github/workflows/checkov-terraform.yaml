@@ -1,0 +1,42 @@
+name: checkov-terraform
+on:
+  pull_request:
+    types: [opened]
+    paths: 
+      - 'terraform/gcp/**'
+    
+env:
+  PR_NUMBER: ${{ github.event.number }}
+
+jobs:
+  checkov-job:
+    runs-on: ubuntu-latest
+    name: checkov-action
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@master
+      - uses:  'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.SERVICE_ACCOUNT_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
+          export_default_credentials: true
+
+      - name: Run Checkov action
+        id: Prisma_Cloud
+        uses: bridgecrewio/checkov-action@master
+        #env:
+        #  PRISMA_API_URL: https://api.ind.prismacloud.io
+        with:
+         # api-key: ${{ secrets.BC_API_KEY }}
+          directory: terraform/gcp/
+          quiet: true # optional: display only failed checks
+          output_format: github_failed_only
+          
+      - name: Post comment to GitHub PR
+        uses: mshick/add-pr-comment@v1
+        if: ${{ failure() && steps.checkov.outcome == 'failure' }}
+        with:
+         repo-token: ${{ secrets.TOKEN }}
+         message: |
+            ${{ env.CHECKOV_RESULTS }}
+            
