@@ -1,0 +1,8 @@
+.log
+*.terraform.lock.hcl
+*.tfstate
+*.terraform
+*.terraform.tfstate.backup
+*.pre-commit-config.yaml
+*.json
+#kubeconfig*
