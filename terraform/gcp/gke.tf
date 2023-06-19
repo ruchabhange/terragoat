@@ -1,3 +1,4 @@
+## compute zones
 data "google_compute_zones" "available_zones" {
   project = var.project
   region  = var.region
