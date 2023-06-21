@@ -1,5 +1,5 @@
 data "google_compute_zones" "zones" {}
-
+#instance
 resource "google_compute_instance" "server" {
   machine_type = "n1-standard-1"
   name         = "terragoat-${var.environment}-machine"
